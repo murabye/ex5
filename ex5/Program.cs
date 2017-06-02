@@ -13,16 +13,46 @@ namespace ex5
         {
             while (true)
             {
-                Console.WriteLine("Введите матрицу построчно через пробелы: ");
-                var first = Console.ReadLine();
-                if (first == "")
+                var str = Ask.Word("Введите матрицу построчно через пробелы: ");
+
+                // по первой строке инициализируем порядок матрицы
+                // инициализируем матрицу по полученным данным
+
+                var count = str.Split(' ').Length;
+                var matrix = new int[count][];
+
+                // попытка расщифровки
+                try
                 {
-                    Console.WriteLine("Неверный ввод: ");
+                    ToArr(str, count, out matrix[0]);
+                    for (var i = 1; i < count; i++)
+                    {
+                        str = Console.ReadLine();
+                        ToArr(str, count, out matrix[i]);
+                    }
+                }
+                catch (AggregateException e)
+                {
+                    Console.WriteLine(e);
                     continue;
                 }
 
-                var count = first.Split(' ').Length;
+            }
+        }
 
+        static void ToArr(string str, int count, out int[] arr)
+        {
+            arr = new int[count];
+            var nums = str.Split(' ');
+
+            // если недостаточно, то
+            if (nums.Length != count)
+                throw new AggregateException("Недостаточно цифр в строке матрицы");
+
+            for (var i = 0; i < count; i++)
+            {
+                if (!int.TryParse(nums[i], out arr[i]))
+                    throw new AggregateException("Неверно введено число");
             }
         }
     }
