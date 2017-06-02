@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyLib;
+
+// дважды ошибка
 
 namespace ex5
 {
@@ -13,7 +11,7 @@ namespace ex5
         {
             while (true)
             {
-                var str = Ask.Word("Введите матрицу построчно через пробелы: ");
+                var str = Ask.Word("Введите матрицу построчно через пробелы: \n");
 
                 // по первой строке инициализируем порядок матрицы
                 // инициализируем матрицу по полученным данным
@@ -41,6 +39,16 @@ namespace ex5
                     continue;
                 }
 
+                // если строка четная, то выписать
+                Console.Write("Четные строки: ");
+                for (var i = 0; i < count; i++)
+                {
+                    if (IsEven(matrix[i]))
+                        Console.Write(" " + i);
+                }
+
+                OC.Stay();
+
             }
         }
 
@@ -62,6 +70,14 @@ namespace ex5
             }
 
             return arr;
+        }
+        static bool IsEven(int[] arr)
+        {
+            var ans = true;
+            foreach (var num in arr)
+                ans = ans && (num % 2 == 0);
+
+            return ans;
         }
     }
 }
