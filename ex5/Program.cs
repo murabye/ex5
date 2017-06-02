@@ -16,7 +16,7 @@ namespace ex5
                 // по первой строке инициализируем порядок матрицы
                 // инициализируем матрицу по полученным данным
 
-                var count = str.Split(' ').Length;
+                var count = str.Trim().Split(' ').Length;
                 var matrix = new int[count][];
 
                 // попытка расщифровки
@@ -44,7 +44,7 @@ namespace ex5
                 for (var i = 0; i < count; i++)
                 {
                     if (IsEven(matrix[i]))
-                        Console.Write(" " + i);
+                        Console.Write(" " + i+1);
                 }
 
                 OC.Stay();
@@ -57,7 +57,7 @@ namespace ex5
             // функция для перевода из строки с цифрами в одномерный массив
 
             var arr = new int[count];
-            var nums = str.Split(' ');
+            var nums = str.Trim().Split(' ');
 
             // если недостаточно, то
             if (nums.Length != count)
