@@ -24,15 +24,19 @@ namespace ex5
                 // попытка расщифровки
                 try
                 {
-                    ToArr(str, count, out matrix[0]);
+                    // первая (уже заполненная) строка
+                    matrix[0] = ToArr(str, count);
+
+                    // дешифровка всех оставшихся строк
                     for (var i = 1; i < count; i++)
                     {
                         str = Console.ReadLine();
-                        ToArr(str, count, out matrix[i]);
+                        matrix[i] = ToArr(str, count);
                     }
                 }
                 catch (AggregateException e)
                 {
+                    // если встречена ошибка, то выписать
                     Console.WriteLine(e);
                     continue;
                 }
@@ -40,9 +44,11 @@ namespace ex5
             }
         }
 
-        static void ToArr(string str, int count, out int[] arr)
+        static int[] ToArr(string str, int count)
         {
-            arr = new int[count];
+            // функция для перевода из строки с цифрами в одномерный массив
+
+            var arr = new int[count];
             var nums = str.Split(' ');
 
             // если недостаточно, то
@@ -54,6 +60,8 @@ namespace ex5
                 if (!int.TryParse(nums[i], out arr[i]))
                     throw new AggregateException("Неверно введено число");
             }
+
+            return arr;
         }
     }
 }
